@@ -1,0 +1,22 @@
+(rule
+ (targets allocpair.o)
+ (deps (:source allocpair.c))
+ (action (run %{ocamlopt} -thread -ccopt -pthread %{source} -o %{targets})))
+
+(executable
+ (name printmod)
+ (modules printmod)
+ (libraries unix threads)
+ (link_deps allocpair.o ../target/debug/libocaml_bn.a)
+ (link_flags -thread -ccopt -pthread src/allocpair.o target/debug/libocaml_bn.a))
+
+(rule
+ (targets bn.ml)
+ (deps (:gen printmod.exe))
+ (action (with-stdout-to %{targets} (run %{gen}))))
+
+(library
+ (name bn)
+ (modules bn)
+ (libraries unix threads bigstring)
+ (c_library_flags -lpthread src/allocpair.o target/debug/libocaml_bn.a))

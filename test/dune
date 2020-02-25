@@ -1,0 +1,7 @@
+(test
+ (name test)
+ (libraries bn alcotest))
+
+(alias
+ (name runtest_quick)
+ (action (run ./test.exe -q)))

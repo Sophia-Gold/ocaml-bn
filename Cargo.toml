@@ -1,0 +1,16 @@
+[package]
+name = "ocaml-bn"
+version = "0.1.0"
+authors = ["Sophia Gold <sophiagoldnyc@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bn = { git = "https://github.com/paritytech/bn" }
+rand = "*"
+bincode = "0.6"
+rustc-serialize = "0.3"
+dmz = { git = "https://github.com/sophia-gold/dmz" }
+
+[lib]
+name = "ocaml_bn"
+crate-type = ["staticlib"]
